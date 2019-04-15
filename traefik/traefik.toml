@@ -1,0 +1,71 @@
+logLevel = "ERROR"
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "votre-domaine.fr"
+watch = true
+exposedByDefault = false
+swarmmode = true
+
+[acme]
+email = "contact@votre-mail.fr"
+storage = "acme.json"
+entryPoint = "https"
+onDemand = false
+onHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
+
+[file]
+  [backends]
+    [backends.nas]
+      [backends.nas.servers.1]
+        url = "http://192.168.1.74:5000"
+    [backends.plex]
+      [backends.plex.servers.1]
+        url = "http://192.168.1.74:32400"
+    [backends.torrent]
+      [backends.torrent.servers.1]
+        url = "http://192.168.1.140:8080"
+
+  [frontends]
+    [frontends.nas]
+      backend = "nas"
+      [frontends.nas.routes.any]
+        rule = "Host:nas.votre-domaine.fr"
+    [frontends.plex]
+      backend = "plex"
+      [frontends.plex.routes.any]
+        rule = "Host:plex.votre-domaine.fr"
+    [frontends.torrent]
+      backend = "torrent"
+      basicAuth = [
+        "admin:$apr1$de/sdQX7$OX5KcK.TFGrITsa2SFg4a.",
+         "Julien:$apr1$gRX9P9nE$ELXLc/UxNRdTpW8itJOpC."
+      ]
+      [frontends.torrent.routes.any]
+        rule = "Host:torrent.votre-domaine.fr"
+
+
+
+[[acme.domains]]
+main = "votre-domaine.fr"
+sans = [
+    "traefik.votre-domaine.fr",
+    "portainer.votre-domaine.fr",
+    "nas.votre-domaine.fr",
+    "plex.votre-domaine.fr",
+    "torrent.votre-domaine.fr",
+    "gogs.votre-domaine.fr",
+    "phpmyadmin.votre-domaine.fr"
+]

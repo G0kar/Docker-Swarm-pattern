@@ -1,0 +1,67 @@
+version: '3.7'
+
+services:
+    db-prod:
+        image: mariadb:latest
+        command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+        environment:
+            MYSQL_ROOT_PASSWORD : "votre_mot_de_passe"
+        networks:
+            - traefik_network
+        volumes:
+            - "/etc/mariadb/db-prod:/var/lib/mysql"
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: any
+
+    db-qualif:
+        image: mariadb:latest
+        command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+        environment:
+            MYSQL_ROOT_PASSWORD : "votre_mot_de_passe"
+        networks:
+            - traefik_network
+        volumes:
+            - "/etc/mariadb/db-qualif:/var/lib/mysql"
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: any
+
+    db-dev:
+        image: mariadb:latest
+        command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+        environment:
+            MYSQL_ROOT_PASSWORD : "votre_mot_de_passe"
+        networks:
+            - traefik_network
+        volumes:
+            - "/etc/mariadb/db-dev:/var/lib/mysql"
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: any
+
+    adminer:
+        image: adminer:latest
+        networks:
+            - traefik_network
+        deploy:
+            replicas: 1
+            placement:
+                constraints: [node.role==manager]
+            restart_policy:
+                condition: any
+            labels:
+                - "traefik.enable=true"
+                - "traefik.port=8080"
+                - "traefik.entryPoint=http,https"
+                - "traefik.docker.network=traefik_rp_network"
+                - "traefik.backend=adminer"
+                - "traefik.frontend.rule=Host:adminer.votre-domaine.fr"
+
+networks:
+    traefik_network:
+        external: true
+        name: traefik_rp_network

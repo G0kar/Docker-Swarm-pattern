@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+    db-gogs:
+        image: mariadb:latest
+        command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+        environment:
+            MYSQL_ROOT_PASSWORD : "votre_mot_de_passe"
+        networks:
+            - traefik_network
+        volumes:
+            - "/etc/mariadb/db-gogs:/var/lib/mysql"
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: any
+
+    gogs:
+        image: gogs/gogs:latest
+        volumes:
+            - "gogsdata:/data/"
+        environment:
+            - "PUID:1001"
+            - "PGID:1001"
+        networks:
+            - traefik_network
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: any
+            labels:
+                - "traefik.enable=true"
+                - "traefik.port=3000"
+                - "traefik.docker.network=traefik_rp_network"
+                - "traefik.backend=gogs"
+                - "traefik.frontend.rule=Host:gogs.votre-domaine.fr"
+
+networks:
+    traefik_network:
+        external: true
+        name: traefik_rp_network
+
+volumes:
+    gogsdata:

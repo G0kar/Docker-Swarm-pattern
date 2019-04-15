@@ -1,0 +1,91 @@
+[
+  {
+    "type": 2,
+    "title": "PhpMyAdmin + MariaDB (DEV/QUAL/PROD)",
+    "description": "MariaDB est un système de gestion de base de données édité sous licence GPL. Il s'agit d'un fork communautaire de MySQL.",
+    "note": "test",
+    "categories": ["database"],
+    "platform": "linux",
+    "logo": "https://mariadb.org/wp-content/uploads/2019/01/mariadb_org_rgb_v-300x271.png",
+    "repository": {
+      "url": "https://github.com/G0kar/Wordpress-docker-compose",
+      "stackfile": "mariadb/docker-compose.yml"
+    },
+    "env": [
+      {
+        "name": "MYSQL_ROOT_PASSWORD",
+        "label": "Mot de passe Root",
+        "description": "Mot de passe de l'utilisateur root."
+      },
+      {
+        "name": "URL_WEBSERVICE",
+        "label": "Url pour l'interface web PhpMyAdmin",
+        "description": "exemple: phpmyadmin.monsite.fr"
+      }
+    ]
+  },
+  {
+    "type": 3,
+    "title": "Wordpress",
+    "description": "WordPress est un système de gestion de contenu (CMS) gratuit, libre et open-source.",
+    "note": "test",
+    "categories": ["CMS"],
+    "platform": "linux",
+    "logo": "https://s.w.org/style/images/about/WordPress-logotype-simplified.png",
+    "repository": {
+      "url": "https://github.com/G0kar/Wordpress-docker-compose",
+      "stackfile": "wordpress/docker-compose.yml"
+    },
+    "env": [
+      {
+        "name": "APP_SERVICE",
+        "label": "APP SERVICE",
+        "description": "Nom du site internet."
+      },
+      {
+        "name": "WORDPRESS_DB_HOST",
+        "label": "WORDPRESS HOST",
+        "description": "Saisir le Hostname utilisé par le BDD souhaitée",
+        "select": [
+          {
+            "text": "Production",
+            "value": "PROD",
+            "default": true
+          },
+          {
+            "text": "Qualification",
+            "value": "QUAL"
+          },
+          {
+            "text": "Développement",
+            "value": "DEV"
+          }
+        ]
+      },
+      {
+        "name": "WORDPRESS_DB_NAME",
+        "label": "WORDPRESS DB NAME",
+        "description": "Nom de la base de donnée.",
+        "default": "wordpress"
+      },
+      {
+        "name": "WORDPRESS_TABLE_PREFIX",
+        "label": "WORDPRESS TABLE PREFIX",
+        "description" : "Préfix des différentes tables.",
+        "default": "wp_"
+      },
+      {
+        "name": "WORDPRESS_DB_USER",
+        "label": "WORDPRESS DB USER",
+        "description" : "Utilisateur de la base de donnée.",
+        "default": "root"
+      },
+      {
+        "name": "WORDPRESS_DB_PASSWORD",
+        "label": "WORDPRESS DB PASSWORD",
+        "description" : "Mot de passe de l'utilisateur de la base de donnée.",
+        "default": "mon_super_mdp"
+      }
+    ]
+  }
+]
