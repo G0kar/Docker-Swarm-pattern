@@ -48,6 +48,11 @@
         "description": "Url du site internet."
       },
       {
+        "name": "WORDPRESS_DB_NAME",
+        "label": "Nom de la base de donnée",
+        "description" : "Nom de la base de donnée pour la production / qualification / développement"
+      },
+      {
         "name": "WORDPRESS_TABLE_PREFIX",
         "label": "Préfix des tables",
         "description" : "Préfix des différentes tables.",
