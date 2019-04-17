@@ -1,0 +1,81 @@
+version: '3.7'
+services:
+    wordpress-prod:
+        image: wordpress:latest
+        networks:
+            - traefik_network
+        volumes:
+            - "/var/www/${WORDPRESS_WEB_NAME}:/var/www/html"
+        environment:
+            WORDPRESS_DB_HOST: "db-prod"
+            WORDPRESS_DB_NAME : "${WORDPRESS_DB_NAME}"
+            WORDPRESS_DB_USER: "${WORDPRESS_DB_USER}"
+            WORDPRESS_DB_PASSWORD: "${WORDPRESS_DB_PASSWORD_PROD}"
+            WORDPRESS_TABLE_PREFIX: "${WORDPRESS_TABLE_PREFIX}"
+        deploy:
+            replicas: 3
+            restart_policy:
+                condition: any
+            labels:
+                - "traefik.enable=true"
+                - "traefik.port=80"
+                - "traefik.entryPoint=http,https"
+                - "traefik.docker.network=traefik_rp_network"
+                - "traefik.backend=${WORDPRESS_WEB_NAME}"
+                - "traefik.frontend.rule=Host:${WORDPRESS_WEB_URL}"
+
+    wordpress-qualif:
+        image: wordpress:latest
+        networks:
+            - traefik_network
+        volumes:
+            - "/var/www/${WORDPRESS_WEB_NAME}_qualif:/var/www/html"
+        environment:
+            WORDPRESS_DB_HOST: "db-qualif"
+            WORDPRESS_DB_NAME : "${WORDPRESS_DB_NAME}"
+            WORDPRESS_DB_USER: "${WORDPRESS_DB_USER}"
+            WORDPRESS_DB_PASSWORD: "${WORDPRESS_DB_PASSWORD_QUALIF}"
+            WORDPRESS_TABLE_PREFIX: "${WORDPRESS_TABLE_PREFIX}"
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: any
+            labels:
+                - "traefik.enable=true"
+                - "traefik.port=80"
+                - "traefik.entryPoint=http,https"
+                - "traefik.docker.network=traefik_rp_network"
+                - "traefik.backend=qual.${WORDPRESS_WEB_NAME}"
+                - "traefik.frontend.rule=Host:qual.${WORDPRESS_WEB_URL}"
+                - "traefik.frontend.auth.basic=${WORDPRESS_HTUSER}:${WORDPRESS_HTPASSWD}"
+
+    wordpress-dev:
+        image: wordpress:latest
+        networks:
+            - traefik_network
+        volumes:
+            - "/var/www/${WORDPRESS_WEB_NAME}_dev:/var/www/html"
+        environment:
+            WORDPRESS_DB_HOST: "db-dev"
+            WORDPRESS_DB_NAME : "${WORDPRESS_DB_NAME}"
+            WORDPRESS_DB_USER: "${WORDPRESS_DB_USER}"
+            WORDPRESS_DB_PASSWORD: "${WORDPRESS_DB_PASSWORD_DEV}"
+            WORDPRESS_TABLE_PREFIX: "${WORDPRESS_TABLE_PREFIX}"
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: any
+            labels:
+                - "traefik.enable=true"
+                - "traefik.port=80"
+                - "traefik.entryPoint=http,https"
+                - "traefik.docker.network=traefik_rp_network"
+                - "traefik.backend=dev.${WORDPRESS_WEB_NAME}"
+                - "traefik.frontend.rule=Host:dev.${WORDPRESS_WEB_URL}"
+                - "traefik.frontend.auth.basic=${WORDPRESS_HTUSER}:${WORDPRESS_HTPASSWD}"
+
+
+networks:
+    traefik_network:
+        external: true
+        name: traefik_rp_network

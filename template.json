@@ -25,7 +25,7 @@
     ]
   },
   {
-    "type": 3,
+    "type": 2,
     "title": "Wordpress",
     "description": "WordPress est un système de gestion de contenu (CMS) gratuit, libre et open-source.",
     "note": "test",
@@ -33,58 +33,55 @@
     "platform": "linux",
     "logo": "https://s.w.org/style/images/about/WordPress-logotype-simplified.png",
     "repository": {
-      "url": "https://github.com/G0kar/Wordpress-docker-compose",
-      "stackfile": "wordpress/docker-compose.yml"
+      "url": "https://github.com/G0kar/Docker-Swarm-pattern",
+      "stackfile": "wordpress/wordpress-stack.yml"
     },
     "env": [
       {
-        "name": "APP_SERVICE",
-        "label": "APP SERVICE",
+        "name": "WORDPRESS_WEB_NAME",
+        "label": "Nom du site",
         "description": "Nom du site internet."
       },
       {
-        "name": "WORDPRESS_DB_HOST",
-        "label": "WORDPRESS HOST",
-        "description": "Saisir le Hostname utilisé par le BDD souhaitée",
-        "select": [
-          {
-            "text": "Production",
-            "value": "PROD",
-            "default": true
-          },
-          {
-            "text": "Qualification",
-            "value": "QUAL"
-          },
-          {
-            "text": "Développement",
-            "value": "DEV"
-          }
-        ]
-      },
-      {
-        "name": "WORDPRESS_DB_NAME",
-        "label": "WORDPRESS DB NAME",
-        "description": "Nom de la base de donnée.",
-        "default": "wordpress"
+        "name": "WORDPRESS_WEB_URL",
+        "label": "Url du site",
+        "description": "Url du site internet."
       },
       {
         "name": "WORDPRESS_TABLE_PREFIX",
-        "label": "WORDPRESS TABLE PREFIX",
+        "label": "Préfix des tables",
         "description" : "Préfix des différentes tables.",
         "default": "wp_"
       },
       {
         "name": "WORDPRESS_DB_USER",
-        "label": "WORDPRESS DB USER",
-        "description" : "Utilisateur de la base de donnée.",
-        "default": "root"
+        "label": "Utilisateur MariaDB",
+        "description" : "Utilisateur de la base de donnée."
       },
       {
-        "name": "WORDPRESS_DB_PASSWORD",
-        "label": "WORDPRESS DB PASSWORD",
-        "description" : "Mot de passe de l'utilisateur de la base de donnée.",
-        "default": "mon_super_mdp"
+        "name": "WORDPRESS_DB_PASSWORD_PROD",
+        "label": "MDP MariaDB pour la prod",
+        "description" : "Mot de passe de l'utilisateur de la base de donnée de production."
+      },
+      {
+        "name": "WORDPRESS_DB_PASSWORD_QUALIF",
+        "label": "MDP MariaDB pour la qualif",
+        "description" : "Mot de passe de l'utilisateur de la base de donnée de qualification."
+      },
+      {
+        "name": "WORDPRESS_DB_PASSWORD_DEV",
+        "label": "MDP MariaDB pour la dev",
+        "description" : "Mot de passe de l'utilisateur de la base de donnée de développement."
+      },
+      {
+        "name": "WORDPRESS_HTUSER",
+        "label": "Utilisateur Htpasswd",
+        "description" : "Nom d'utilisateur pour la connexion à la qualif et la dev."
+      },
+      {
+        "name": "WORDPRESS_HTPASSWD",
+        "label": "MDP Htpasswd",
+        "description" : "Mot de passe de l'utilisateur pour la connexion à la qualif et la dev."
       }
     ]
   }
