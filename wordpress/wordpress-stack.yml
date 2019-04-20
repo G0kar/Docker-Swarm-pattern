@@ -5,7 +5,7 @@ services:
         networks:
             - traefik_network
         volumes:
-            - "/var/www/${WORDPRESS_WEB_NAME}:/var/www/html"
+            - "/var/www/${WORDPRESS_WEB_NAME}/public:/var/www/html"
         environment:
             WORDPRESS_DB_HOST: "db-prod"
             WORDPRESS_DB_NAME : "${WORDPRESS_DB_NAME}"
@@ -29,7 +29,7 @@ services:
         networks:
             - traefik_network
         volumes:
-            - "/var/www/${WORDPRESS_WEB_NAME}_qualif:/var/www/html"
+            - "/var/www/${WORDPRESS_WEB_NAME}_qualif/public:/var/www/html"
         environment:
             WORDPRESS_DB_HOST: "db-qualif"
             WORDPRESS_DB_NAME : "${WORDPRESS_DB_NAME}"
@@ -54,7 +54,7 @@ services:
         networks:
             - traefik_network
         volumes:
-            - "/var/www/${WORDPRESS_WEB_NAME}_dev:/var/www/html"
+            - "/var/www/${WORDPRESS_WEB_NAME}_dev/public:/var/www/html"
         environment:
             WORDPRESS_DB_HOST: "db-dev"
             WORDPRESS_DB_NAME : "${WORDPRESS_DB_NAME}"
