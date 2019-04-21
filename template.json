@@ -55,7 +55,7 @@
       {
         "name": "PATH_STOCKAGE",
         "label": "Emplacement du stockage persistant",
-        "description": "exemple: /etc/mariadb"
+        "description": "exemple: /etc/mariadb/db-gogs"
       }
     ]
   },
