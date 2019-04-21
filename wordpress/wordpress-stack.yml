@@ -45,8 +45,8 @@ services:
                 - "traefik.port=80"
                 - "traefik.entryPoint=http,https"
                 - "traefik.docker.network=traefik_rp_network"
-                - "traefik.backend=qual.${WORDPRESS_WEB_NAME}"
-                - "traefik.frontend.rule=Host:qual.${WORDPRESS_WEB_URL}"
+                - "traefik.backend=qualif.${WORDPRESS_WEB_NAME}"
+                - "traefik.frontend.rule=Host:qualif.${WORDPRESS_WEB_URL}"
                 - "traefik.frontend.auth.basic=${WORDPRESS_HTUSER}:${WORDPRESS_HTPASSWD}"
 
     wordpress-dev:

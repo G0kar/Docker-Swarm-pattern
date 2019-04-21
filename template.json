@@ -1,15 +1,15 @@
 [
   {
     "type": 2,
-    "title": "PhpMyAdmin + MariaDB (DEV/QUAL/PROD)",
+    "title": "PhpMyAdmin + MariaDB (DEV/QUALIF/PROD)",
     "description": "MariaDB est un système de gestion de base de données édité sous licence GPL. Il s'agit d'un fork communautaire de MySQL.",
     "note": "test",
     "categories": ["database"],
     "platform": "linux",
-    "logo": "https://mariadb.org/wp-content/uploads/2019/01/mariadb_org_rgb_v-300x271.png",
+    "logo": "https://www.tuto-synology.fr/wp-content/uploads/2014/03/logo-phpmyadmin-768x403.png",
     "repository": {
-      "url": "https://github.com/G0kar/Wordpress-docker-compose",
-      "stackfile": "mariadb/docker-compose.yml"
+      "url": "https://github.com/G0kar/Docker-Swarm-pattern",
+      "stackfile": "phpmyadmin-mariadb/pma-mariadb-stack.yml"
     },
     "env": [
       {
@@ -21,6 +21,11 @@
         "name": "URL_WEBSERVICE",
         "label": "Url pour l'interface web PhpMyAdmin",
         "description": "exemple: phpmyadmin.monsite.fr"
+      },
+      {
+        "name": "PATH_STOCKAGE",
+        "label": "Emplacement du stockage persistant",
+        "description": "exemple: /etc/mariadb"
       }
     ]
   },

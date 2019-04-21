@@ -1,15 +1,14 @@
 version: '3.7'
-
 services:
     db-prod:
         image: mariadb:latest
         command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
         environment:
-            MYSQL_ROOT_PASSWORD : "votre_mot_de_passe"
+            MYSQL_ROOT_PASSWORD : "${MYSQL_ROOT_PASSWORD}"
         networks:
             - traefik_network
         volumes:
-            - "/etc/mariadb/db-prod:/var/lib/mysql"
+            - "${PATH_STOCKAGE}/db-prod:/var/lib/mysql"
         deploy:
             replicas: 1
             restart_policy:
@@ -19,11 +18,11 @@ services:
         image: mariadb:latest
         command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
         environment:
-            MYSQL_ROOT_PASSWORD : "votre_mot_de_passe"
+            MYSQL_ROOT_PASSWORD : "${MYSQL_ROOT_PASSWORD}"
         networks:
             - traefik_network
         volumes:
-            - "/etc/mariadb/db-qualif:/var/lib/mysql"
+            - "${PATH_STOCKAGE}/db-qualif:/var/lib/mysql"
         deploy:
             replicas: 1
             restart_policy:
@@ -33,11 +32,11 @@ services:
         image: mariadb:latest
         command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
         environment:
-            MYSQL_ROOT_PASSWORD : "votre_mot_de_passe"
+            MYSQL_ROOT_PASSWORD : "${MYSQL_ROOT_PASSWORD}"
         networks:
             - traefik_network
         volumes:
-            - "/etc/mariadb/db-dev:/var/lib/mysql"
+            - "${PATH_STOCKAGE}/db-dev:/var/lib/mysql"
         deploy:
             replicas: 1
             restart_policy:
@@ -48,8 +47,8 @@ services:
         networks:
             - traefik_network
         environment:
-            MYSQL_ROOT_PASSWORD : "votre_mot_de_passe"
-            PMA_HOSTS: "db-prod,db-qualif,db-dev,db-gogs"
+            MYSQL_ROOT_PASSWORD : "${MYSQL_ROOT_PASSWORD}"
+            PMA_HOSTS: "db-prod,db-qualif,db-dev"
         deploy:
             replicas: 1
             placement:
@@ -62,7 +61,7 @@ services:
                 - "traefik.entryPoint=http,https"
                 - "traefik.docker.network=traefik_rp_network"
                 - "traefik.backend=phpmyadmin"
-                - "traefik.frontend.rule=Host:phpmyadmin.votre-domaine.fr"
+                - "traefik.frontend.rule=Host:${URL_WEBSERVICE}"
 
 networks:
     traefik_network:
