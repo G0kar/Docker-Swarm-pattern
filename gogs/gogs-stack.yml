@@ -23,6 +23,8 @@ services:
             - "PGID:1001"
         networks:
             - traefik_network
+        ports:
+            - "22:22"
         deploy:
             replicas: 1
             restart_policy:

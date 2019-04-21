@@ -31,7 +31,7 @@
   },
   {
     "type": 2,
-    "title": "Gogs + MariaDB dédié",
+    "title": "Gogs + MariaDB dédiée",
     "description": "Gogs est une forge multiplateforme basée sur git avec une interface web similaire à celle de GitHub.",
     "note": "test",
     "categories": ["git"],
