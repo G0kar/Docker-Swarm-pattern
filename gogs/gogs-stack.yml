@@ -24,7 +24,7 @@ services:
         networks:
             - traefik_network
         ports:
-            - "22:22"
+            - "10234:22"
         deploy:
             replicas: 1
             restart_policy:
