@@ -7,7 +7,6 @@ services:
             MYSQL_ROOT_PASSWORD : "${MYSQL_ROOT_PASSWORD}"
         networks:
             - traefik_network
-            - ssh_network
         volumes:
             - "${PATH_STOCKAGE}:/var/lib/mysql"
         deploy:
@@ -41,8 +40,6 @@ networks:
     traefik_network:
         external: true
         name: traefik_rp_network
-    ssh_network:
-        driver: overlay
 
 volumes:
     gogsdata:
