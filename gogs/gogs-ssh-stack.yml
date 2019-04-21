@@ -29,10 +29,12 @@ services:
                 condition: any
             labels:
                 - "traefik.enable=true"
-                - "traefik.port=3000"
                 - "traefik.docker.network=traefik_rp_network"
                 - "traefik.backend=gogs"
-                - "traefik.frontend.rule=Host:${URL_WEBSERVICE}"
+                - "traefik.ssh.port=22"
+                - "traefik.ssh.frontend.rule=Host:${URL_WEBSERVICE_SSH}"
+                - "traefik.webui.port=3000"
+                - "traefik.webui.frontend.rule=Host:${URL_WEBSERVICE}"
 
 networks:
     traefik_network:

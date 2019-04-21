@@ -61,6 +61,41 @@
   },
   {
     "type": 2,
+    "title": "Gogs + MariaDB dédiée + support SSH",
+    "description": "Gogs est une forge multiplateforme basée sur git avec une interface web similaire à celle de GitHub.",
+    "note": "test",
+    "categories": ["git"],
+    "platform": "linux",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/0/09/Gogs_logo.png",
+    "repository": {
+      "url": "https://github.com/G0kar/Docker-Swarm-pattern",
+      "stackfile": "gogs/gogs-ssh-stack.yml"
+    },
+    "env": [
+      {
+        "name": "MYSQL_ROOT_PASSWORD",
+        "label": "Mot de passe Root",
+        "description": "Mot de passe de l'utilisateur root."
+      },
+      {
+        "name": "URL_WEBSERVICE",
+        "label": "Url pour l'interface web Gogs",
+        "description": "exemple: gogs.monsite.fr"
+      },
+      {
+        "name": "URL_WEBSERVICE_SSH",
+        "label": "Url pour l'authentification SSH de Gogs",
+        "description": "exemple: ssh.gogs.monsite.fr"
+      },
+      {
+        "name": "PATH_STOCKAGE",
+        "label": "Emplacement du stockage persistant",
+        "description": "exemple: /etc/mariadb/db-gogs"
+      }
+    ]
+  },
+  {
+    "type": 2,
     "title": "Wordpress",
     "description": "WordPress est un système de gestion de contenu (CMS) gratuit, libre et open-source.",
     "note": "test",
