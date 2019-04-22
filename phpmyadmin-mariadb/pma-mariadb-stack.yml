@@ -8,7 +8,7 @@ services:
         networks:
             - traefik_network
         volumes:
-            - "${PATH_STOCKAGE}/db-prod:/var/lib/mysql"
+            - "${PATH_STOCKAGE_PROD}:/var/lib/mysql"
         deploy:
             replicas: 1
             restart_policy:
@@ -22,7 +22,7 @@ services:
         networks:
             - traefik_network
         volumes:
-            - "${PATH_STOCKAGE}/db-qualif:/var/lib/mysql"
+            - "${PATH_STOCKAGE_QUALIF}:/var/lib/mysql"
         deploy:
             replicas: 1
             restart_policy:
@@ -36,7 +36,7 @@ services:
         networks:
             - traefik_network
         volumes:
-            - "${PATH_STOCKAGE}/db-dev:/var/lib/mysql"
+            - "${PATH_STOCKAGE_DEV}:/var/lib/mysql"
         deploy:
             replicas: 1
             restart_policy:
