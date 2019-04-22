@@ -49,6 +49,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD : "${MYSQL_ROOT_PASSWORD}"
             PMA_HOSTS: "db-prod,db-qualif,db-dev"
+            PMA_ABSOLUTE_URI: "https://${URL_WEBSERVICE}/"
         deploy:
             replicas: 1
             placement:
