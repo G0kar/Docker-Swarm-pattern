@@ -51,7 +51,7 @@ onHostRule = true
       backend = "torrent"
       basicAuth = [
         "admin:$apr1$de/sdQX7$OX5KcK.TFGrITsa2SFg4a.",
-         "Julien:$apr1$gRX9P9nE$ELXLc/UxNRdTpW8itJOpC."
+        "admin2:$apr1$gRX9P9nE$ELXLc/UxNRdTpW8itJOpC."
       ]
       [frontends.torrent.routes.any]
         rule = "Host:torrent.votre-domaine.fr"
