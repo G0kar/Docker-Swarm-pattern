@@ -1,6 +1,33 @@
 [
   {
     "type": 2,
+    "title": "Nginx",
+    "description": "test",
+    "note": "test",
+    "categories": [
+      "database"
+    ],
+    "platform": "linux",
+    "logo": "https://www.citizenz.info/data/medias/Nginx_Logo.png",
+    "repository": {
+      "url": "https://github.com/G0kar/Docker-Swarm-pattern",
+      "stackfile": "nginx/nginx-stack.yml"
+    },
+    "env": [
+      {
+        "name": "WEB_NAME",
+        "label": "WEB_NAME",
+        "description": "Mot de passe de l'utilisateur root."
+      },
+      {
+        "name": "WEB_URL",
+        "label": "WEB_URL",
+        "description": "exemple: phpmyadmin.monsite.fr"
+      }
+    ]
+  },
+  {
+    "type": 2,
     "title": "PhpMyAdmin + MariaDB (DEV/QUALIF/PROD)",
     "description": "MariaDB est un système de gestion de base de données édité sous licence GPL. Il s'agit d'un fork communautaire de MySQL.",
     "note": "test",

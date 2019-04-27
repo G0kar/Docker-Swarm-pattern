@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+    nginx:
+        image: nginx:latest
+        networks:
+            - traefik_network
+            - lnet
+        working_dir: /var/www/html/
+        volumes:
+            - "/var/www/${WEB_NAME}/:/var/www/html/"
+            - "/var/www/${WEB_NAME}/.nginx:/etc/nginx/conf.d/default.conf"
+        deploy:
+             replicas: 1
+             restart_policy:
+                 condition: any
+             labels:
+                 - "traefik.enable=true"
+                 - "traefik.port=80"
+                 - "traefik.entryPoint=http,https"
+                 - "traefik.docker.network=traefik_rp_network"
+                 - "traefik.backend=${WEB_NAME}"
+                 - "traefik.frontend.rule=Host:${WEB_URL}"
+
+    php:
+        image: php:fpm
+        networks:
+            - lnet
+        working_dir: /var/www/html/
+        volumes:
+        - "/var/www/${WEB_NAME}/:/var/www/html/"
+        deploy:
+             replicas: 1
+             restart_policy:
+                 condition: any
+
+
+
+networks:
+    traefik_network:
+        external: true
+        name: traefik_rp_network
+    lnet:
